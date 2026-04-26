@@ -9,7 +9,7 @@ model = Model()
 
 @app.route("/", methods=["GET"])
 def home():
-    return "L'API de prédiction est en ligne ! ✅", 200
+    return "L'API  est en ligne ! ✅", 200
 
 @app.route("/predict", methods=["POST"])
 def predict():
