@@ -1,0 +1,21 @@
+steps:
+  # 1. Build de l'image Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/purchased-docker/purchase_api:$SHORT_SHA', '.']
+
+  # 2. Push vers Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/purchased-docker/purchase_api:$SHORT_SHA']
+
+  # 3. Déploiement auto sur Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'purchase-predict-api'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/purchased-docker/purchase_api:$SHORT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--allow-unauthenticated'
