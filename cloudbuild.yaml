@@ -25,4 +25,4 @@ steps:
       - '1Gi'
 
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: CLOUD_LOGGING_ONLYs
